@@ -1,0 +1,95 @@
+---
+title: Endpoints
+description: Full list of available API endpoints.
+---
+
+## Users
+
+<ApiEndpoint
+  method="GET"
+  path="/users"
+  description="List all users in your workspace"
+  params={[]}
+  response={`{
+  "data": [
+    {
+      "id": "usr_abc123",
+      "email": "alice@example.com",
+      "name": "Alice",
+      "role": "admin"
+    }
+  ]
+}`}
+/>
+
+<ApiEndpoint
+  method="GET"
+  path="/users/{id}"
+  description="Get a single user by ID"
+  params={[
+    { name: "id", type: "string", required: true, description: "User ID" }
+  ]}
+  response={`{
+  "data": {
+    "id": "usr_abc123",
+    "email": "alice@example.com",
+    "name": "Alice",
+    "role": "admin"
+  }
+}`}
+/>
+
+<ApiEndpoint
+  method="POST"
+  path="/users"
+  description="Create a new user"
+  bodyParams={[
+    { name: "email", type: "string", required: true, description: "Email address" },
+    { name: "name", type: "string", required: true, description: "Display name" },
+    { name: "role", type: "string", description: "Role: admin or member (default: member)" },
+  ]}
+  response={`{
+  "data": {
+    "id": "usr_def456",
+    "email": "bob@example.com",
+    "name": "Bob",
+    "role": "member"
+  }
+}`}
+/>
+
+<ApiEndpoint
+  method="DELETE"
+  path="/users/{id}"
+  description="Delete a user"
+  params={[
+    { name: "id", type: "string", required: true, description: "User ID to delete" }
+  ]}
+  response={`{ "data": { "deleted": true } }`}
+/>
+
+---
+
+## Resources
+
+<ApiEndpoint
+  method="GET"
+  path="/resources"
+  description="List all resources"
+  response={`{ "data": [...] }`}
+/>
+
+<ApiEndpoint
+  method="POST"
+  path="/resources"
+  description="Create a new resource"
+  bodyParams={[
+    { name: "name", type: "string", required: true, description: "Resource name" },
+    { name: "type", type: "string", required: true, description: "Resource type" },
+  ]}
+  response={`{ "data": { "id": "res_abc123", ... } }`}
+/>
+
+<Tip>
+  Add your own endpoints here. Use the `ApiEndpoint` component — it supports click-to-expand with param tables and example responses.
+</Tip>

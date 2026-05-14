@@ -1,0 +1,68 @@
+---
+title: Installation
+description: Detailed installation instructions for different environments.
+---
+
+## Requirements
+
+| Tool | Version |
+|------|---------|
+| Node.js | 18+ |
+| pnpm | 8+ |
+| TypeScript | 5+ |
+
+## Install pnpm
+
+<Tabs>
+  <Tab title="npm">
+    ```bash
+    npm install -g pnpm
+    ```
+  </Tab>
+  <Tab title="Homebrew (macOS)">
+    ```bash
+    brew install pnpm
+    ```
+  </Tab>
+  <Tab title="Standalone">
+    ```bash
+    curl -fsSL https://get.pnpm.io/install.sh | sh -
+    ```
+  </Tab>
+</Tabs>
+
+## Create a new project
+
+```bash
+npx agent-native create my-docs --template docs
+```
+
+<Note>
+  The CLI will prompt you to choose a name and configure your workspace.
+</Note>
+
+## Environment variables
+
+Create a `.env` file at the project root:
+
+```env
+# Required for authentication
+DATABASE_URL=file:./local.db
+
+# Optional: set to your domain in production
+PUBLIC_URL=https://docs.example.com
+```
+
+<Warning>
+  Never commit your `.env` file. It's already in `.gitignore`.
+</Warning>
+
+## Production deployment
+
+This template deploys to Netlify out of the box. Run:
+
+```bash
+pnpm build
+```
+
+Then drag the `dist/` folder into Netlify, or connect your GitHub repository for automatic deploys.

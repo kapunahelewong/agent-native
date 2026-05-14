@@ -1,0 +1,95 @@
+---
+title: Navigation
+description: How to organize and configure the docs sidebar and top navigation.
+---
+
+## docs.config.json
+
+All navigation is controlled by `docs.config.json` at the project root.
+
+```json
+{
+  "title": "My Docs",
+  "description": "Product documentation",
+  "logo": { "text": "Docs" },
+  "navigation": [...],
+  "topNav": [...],
+  "footer": { "links": [...] }
+}
+```
+
+---
+
+## Sidebar navigation
+
+The sidebar is defined by the `navigation` array — a list of groups, each with a list of page slugs.
+
+```json
+{
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/introduction",
+        "getting-started/quickstart"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/overview",
+        "api-reference/authentication"
+      ]
+    }
+  ]
+}
+```
+
+### Custom labels
+
+By default the sidebar shows the page title from frontmatter. To override:
+
+```json
+{
+  "group": "Guides",
+  "pages": [
+    { "slug": "guides/writing-docs", "label": "How to Write Docs" }
+  ]
+}
+```
+
+---
+
+## Top navigation
+
+The top header links are defined by `topNav`:
+
+```json
+{
+  "topNav": [
+    { "label": "Docs", "href": "/" },
+    { "label": "API", "href": "/api-reference/overview" },
+    { "label": "GitHub", "href": "https://github.com/your-repo", "external": true }
+  ]
+}
+```
+
+---
+
+## Prev / Next navigation
+
+Previous and Next links at the bottom of each page are generated automatically from the order of pages in `docs.config.json`.
+
+<Tip>
+  Reorder pages in `docs.config.json` to control the prev/next order.
+</Tip>
+
+---
+
+## Asking the agent
+
+You can update navigation by asking the agent directly:
+
+- *"Add a new section called 'Advanced' with a page called 'advanced/caching'"*
+- *"Move the 'Authentication' page to be the first item in API Reference"*
+- *"Rename the 'Getting Started' group to 'Introduction'"*

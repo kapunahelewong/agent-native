@@ -1,0 +1,85 @@
+---
+title: Quickstart
+description: Get your docs site running in under 5 minutes.
+---
+
+## Prerequisites
+
+- Node.js 18 or later
+- pnpm
+
+## Installation
+
+<Steps>
+  <Step title="Clone the template">
+    ```bash
+    npx agent-native create my-docs --template docs
+    cd my-docs
+    ```
+  </Step>
+
+  <Step title="Install dependencies">
+    ```bash
+    pnpm install
+    ```
+  </Step>
+
+  <Step title="Start the dev server">
+    ```bash
+    pnpm dev
+    ```
+
+    Your docs site opens at [http://localhost:8101](http://localhost:8101).
+  </Step>
+
+  <Step title="Edit your first page">
+    Open `content/getting-started/introduction.mdx` and make a change. The page updates immediately — no rebuild needed.
+  </Step>
+</Steps>
+
+## Customize your site
+
+### Change the site title
+
+Edit `docs.config.json` at the project root:
+
+```json
+{
+  "title": "My Product Docs",
+  "description": "Documentation for My Product"
+}
+```
+
+### Add a page
+
+Create a new `.mdx` file anywhere under `content/`:
+
+```
+content/
+  guides/
+    my-new-page.mdx   ← add here
+```
+
+Then add the slug to `docs.config.json` navigation:
+
+```json
+{
+  "navigation": [
+    {
+      "group": "Guides",
+      "pages": ["guides/my-new-page"]
+    }
+  ]
+}
+```
+
+Or just ask the agent: *"Create a new page under Guides called My New Page".*
+
+<Tip>
+  The agent can also reorder pages, rename sections, and update the navigation for you.
+</Tip>
+
+## Next steps
+
+- [Learn about components](/docs/guides/components) — callouts, tabs, steps, and more
+- [Writing guide](/docs/guides/writing-docs) — tips for great documentation

@@ -1,0 +1,94 @@
+---
+title: API Overview
+description: Introduction to the REST API — authentication, base URLs, and conventions.
+---
+
+This section documents the REST API. All endpoints return JSON and use standard HTTP status codes.
+
+## Base URL
+
+```
+https://api.example.com/v1
+```
+
+All paths in this reference are relative to the base URL.
+
+---
+
+## Authentication
+
+<ApiEndpoint
+  method="POST"
+  path="/auth/token"
+  description="Exchange credentials for a bearer token"
+  bodyParams={[
+    { name: "email", type: "string", required: true, description: "Account email address" },
+    { name: "password", type: "string", required: true, description: "Account password" },
+  ]}
+  response={`{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expiresAt": "2025-12-31T23:59:59Z"
+}`}
+>
+  Returns a JWT bearer token. Include it in all subsequent requests as `Authorization: Bearer <token>`.
+</ApiEndpoint>
+
+Pass the token in the `Authorization` header:
+
+```bash
+curl -H "Authorization: Bearer <token>" https://api.example.com/v1/users
+```
+
+<Warning>
+  Tokens expire after 24 hours. Refresh by calling `/auth/token` again.
+</Warning>
+
+---
+
+## Response format
+
+All responses follow this structure:
+
+```json
+{
+  "data": { ... },
+  "error": null
+}
+```
+
+On error:
+
+```json
+{
+  "data": null,
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Resource not found"
+  }
+}
+```
+
+---
+
+## Status codes
+
+| Code | Meaning |
+|------|---------|
+| `200` | Success |
+| `201` | Created |
+| `400` | Bad request — check your input |
+| `401` | Unauthenticated — missing or invalid token |
+| `403` | Forbidden — insufficient permissions |
+| `404` | Not found |
+| `429` | Rate limited — retry after the `Retry-After` header |
+| `500` | Server error |
+
+---
+
+## Rate limiting
+
+Requests are limited to **100 per minute** per API token. When you hit the limit, the API returns `429` with a `Retry-After: <seconds>` header.
+
+<Tip>
+  Batch operations where possible to stay within rate limits.
+</Tip>

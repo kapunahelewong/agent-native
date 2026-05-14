@@ -1,0 +1,70 @@
+---
+title: Authentication
+description: How to authenticate requests to the API.
+---
+
+The API uses **bearer token** authentication. Every request (except `/auth/token`) must include a valid token.
+
+## Getting a token
+
+<Steps>
+  <Step title="Create an account">
+    Sign up at [app.example.com](https://app.example.com) or via the API.
+  </Step>
+  <Step title="Request a token">
+    ```bash
+    curl -X POST https://api.example.com/v1/auth/token \
+      -H "Content-Type: application/json" \
+      -d '{"email": "you@example.com", "password": "your-password"}'
+    ```
+  </Step>
+  <Step title="Use the token">
+    ```bash
+    curl https://api.example.com/v1/users \
+      -H "Authorization: Bearer eyJhbGci..."
+    ```
+  </Step>
+</Steps>
+
+---
+
+## API keys (server-to-server)
+
+For server-to-server integrations, use a long-lived API key instead of a user token.
+
+<ApiEndpoint
+  method="POST"
+  path="/api-keys"
+  description="Create a new API key"
+  bodyParams={[
+    { name: "name", type: "string", required: true, description: "Human-readable label for this key" },
+    { name: "scopes", type: "string[]", description: "Permission scopes: read, write, admin" },
+  ]}
+  response={`{
+  "id": "key_abc123",
+  "name": "Production server",
+  "key": "sk_live_...",
+  "scopes": ["read", "write"],
+  "createdAt": "2025-01-01T00:00:00Z"
+}`}
+>
+  The `key` value is only returned once — store it securely.
+</ApiEndpoint>
+
+<Danger>
+  API keys have no expiry by default. Rotate them immediately if compromised.
+</Danger>
+
+---
+
+## Scopes
+
+| Scope | Access |
+|-------|--------|
+| `read` | GET requests only |
+| `write` | GET, POST, PUT, PATCH |
+| `admin` | All endpoints including DELETE and user management |
+
+<Note>
+  Request the minimum scopes needed for your integration.
+</Note>

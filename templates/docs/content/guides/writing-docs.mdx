@@ -1,0 +1,132 @@
+---
+title: Writing Docs
+description: Tips and conventions for writing great documentation.
+---
+
+## Writing style
+
+Good documentation is clear, direct, and consistent. A few rules to follow:
+
+<Note>
+  These are defaults — change them to match your team's style guide.
+</Note>
+
+### Voice
+
+Write in **second person** ("you") rather than first person ("we"):
+
+| Avoid | Prefer |
+|-------|--------|
+| We recommend using the CLI. | Use the CLI for this. |
+| Our API returns JSON. | The API returns JSON. |
+| We've made it easy to... | It's easy to... |
+
+<Tip>
+  Ask the agent to run a sweep-replace to fix all "we" → "you" instances across your docs at once.
+</Tip>
+
+### Tone
+
+- Use **active voice**: "Run the command" not "The command should be run"
+- Keep sentences short (under 25 words when possible)
+- Avoid jargon unless you define it on first use
+- Use concrete examples — show, don't just tell
+
+---
+
+## Page structure
+
+Every page should have:
+
+1. **Frontmatter** — `title` and `description` at minimum
+2. **Introduction paragraph** — what this page covers in 1-2 sentences
+3. **Main content** — organized with `##` headings for TOC
+4. **Next steps** — links to related pages
+
+```mdx
+---
+title: My Page Title
+description: One-line summary of this page.
+---
+
+Brief intro paragraph explaining what this page covers.
+
+## First section
+
+Content here.
+
+## Second section
+
+More content.
+
+## Next steps
+
+- [Related page](/docs/related)
+```
+
+---
+
+## Using the agent
+
+The agent understands the full docs structure. Things you can ask:
+
+- *"Create a new page under API Reference called Webhooks"*
+- *"Find all pages that mention 'legacy mode' and list them"*
+- *"Replace all instances of 'API key' with 'API token' across all docs"*
+- *"Add a warning callout to the Authentication page"*
+- *"Move the Quickstart page before Introduction in the navigation"*
+- *"Rewrite the Introduction to be more beginner-friendly"*
+
+<Warning>
+  The sweep-replace action modifies files on disk. It always previews changes first (dry run) so you can confirm before applying.
+</Warning>
+
+---
+
+## Developer vs. user docs
+
+This template supports both developer-focused and user-focused documentation in the same site.
+
+**Developer docs** (under `api-reference/`) typically include:
+- `<ApiEndpoint>` components for API routes
+- Code blocks with multiple language tabs
+- Technical parameter tables
+
+**User guides** (under `guides/`) typically include:
+- `<Steps>` for walkthroughs
+- Screenshots and `<Card>` grids
+- Plain language, no code required
+
+You can mix both styles freely — there's no enforced separation.
+
+---
+
+## Navigation
+
+Navigation is configured in `docs.config.json`:
+
+```json
+{
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/introduction",
+        "getting-started/quickstart"
+      ]
+    }
+  ]
+}
+```
+
+Pages are referenced by their slug (the file path under `content/`, without `.mdx`).
+You can also give a page a custom label:
+
+```json
+{
+  "group": "Guides",
+  "pages": [
+    { "slug": "guides/writing-docs", "label": "Writing Guide" }
+  ]
+}
+```

@@ -243,6 +243,18 @@ export const TEMPLATES: TemplateMeta[] = [
     core: true,
   },
   {
+    name: "docs",
+    label: "Docs",
+    hint: "Agent-native documentation site — write MDX, search, sweep-replace, and edit with AI",
+    icon: "BookOpen",
+    color: "#7C3AED",
+    colorRgb: "124 58 237",
+    devPort: 8101,
+    prodUrl: "https://docs.agent-native.com",
+    defaultMode: "prod",
+    core: true,
+  },
+  {
     name: "images",
     label: "Images",
     hint: "Brand image libraries — generate on-brand heroes, diagrams, product shots, and slide art",

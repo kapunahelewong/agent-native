@@ -1,0 +1,44 @@
+{
+  "title": "My Docs",
+  "description": "Documentation powered by Agent-Native",
+  "logo": {
+    "text": "Docs"
+  },
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/introduction",
+        "getting-started/quickstart",
+        "getting-started/installation"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/writing-docs",
+        "guides/components",
+        "guides/navigation"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/overview",
+        "api-reference/authentication",
+        "api-reference/endpoints"
+      ]
+    }
+  ],
+  "topNav": [
+    { "label": "Docs", "href": "/" },
+    { "label": "API", "href": "/api-reference/overview" },
+    { "label": "GitHub", "href": "https://github.com", "external": true }
+  ],
+  "footer": {
+    "links": [
+      { "label": "GitHub", "href": "https://github.com" },
+      { "label": "Twitter", "href": "https://twitter.com" }
+    ]
+  }
+}

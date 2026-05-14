@@ -1,0 +1,200 @@
+---
+title: Components
+description: All available MDX components for your documentation pages.
+---
+
+Every page is written in MDX, which means you can use React components directly alongside Markdown. Here's the full component reference.
+
+## Callouts
+
+Use callouts to highlight important information.
+
+<Note title="Custom title">
+  Use the `title` prop to override the default label.
+</Note>
+
+<Tip>
+  Tips are great for best practices and pro tips.
+</Tip>
+
+<Warning>
+  Warnings signal something that could go wrong.
+</Warning>
+
+<Danger>
+  Danger callouts are for critical, irreversible actions.
+</Danger>
+
+<Success>
+  Success callouts confirm something worked.
+</Success>
+
+**Usage:**
+
+```mdx
+<Note>This is a note.</Note>
+<Tip title="Pro tip">Use keyboard shortcuts.</Tip>
+<Warning>This action cannot be undone.</Warning>
+<Danger>Deletes all data permanently.</Danger>
+<Success>Your account has been created.</Success>
+```
+
+You can also use the generic `<Callout type="...">` component:
+
+```mdx
+<Callout type="warning" title="Custom warning">
+  Something to watch out for.
+</Callout>
+```
+
+---
+
+## Code blocks
+
+Fenced code blocks get syntax highlighting and a copy button automatically.
+
+```typescript
+import { defineAction } from "@agent-native/core";
+import { z } from "zod";
+
+export default defineAction({
+  description: "My action",
+  schema: z.object({ name: z.string() }),
+  run: async ({ name }) => `Hello, ${name}!`,
+});
+```
+
+Use the `CodeBlock` component for more control:
+
+```mdx
+<CodeBlock language="bash" filename="terminal">
+  pnpm install
+</CodeBlock>
+```
+
+---
+
+## Steps
+
+Use `Steps` for sequential instructions.
+
+<Steps>
+  <Step title="Step one">Do the first thing.</Step>
+  <Step title="Step two">Then do the second thing.</Step>
+  <Step title="Step three">Finally, do the third thing.</Step>
+</Steps>
+
+```mdx
+<Steps>
+  <Step title="Install">Run `pnpm install`</Step>
+  <Step title="Configure">Edit your `.env` file</Step>
+  <Step title="Run">Execute `pnpm dev`</Step>
+</Steps>
+```
+
+---
+
+## Tabs
+
+Use `Tabs` for content with multiple variants.
+
+<Tabs>
+  <Tab title="JavaScript">
+    ```js
+    const greet = (name) => `Hello, ${name}!`;
+    ```
+  </Tab>
+  <Tab title="TypeScript">
+    ```ts
+    const greet = (name: string): string => `Hello, ${name}!`;
+    ```
+  </Tab>
+  <Tab title="Python">
+    ```python
+    def greet(name: str) -> str:
+        return f"Hello, {name}!"
+    ```
+  </Tab>
+</Tabs>
+
+---
+
+## Cards
+
+Cards link to pages or highlight features.
+
+<CardGroup cols={2}>
+  <Card
+    title="Introduction"
+    description="Start here if you're new."
+    href="/docs/getting-started/introduction"
+  />
+  <Card
+    title="API Reference"
+    description="Full technical reference."
+    href="/docs/api-reference/overview"
+  />
+</CardGroup>
+
+```mdx
+<Card title="My Page" description="Short description" href="/docs/my-page" />
+
+<CardGroup cols={3}>
+  <Card title="One" description="First" />
+  <Card title="Two" description="Second" />
+  <Card title="Three" description="Third" />
+</CardGroup>
+```
+
+---
+
+## Accordion
+
+Use accordions for FAQs and collapsible content.
+
+<Accordion>
+  <AccordionItem title="What is MDX?">
+    MDX is Markdown with JSX. You can use React components inside `.mdx` files.
+  </AccordionItem>
+  <AccordionItem title="Can I add custom components?">
+    Yes — register them in `app/components/docs/MDXComponents.tsx` and they'll be available in every page.
+  </AccordionItem>
+</Accordion>
+
+---
+
+## Badges
+
+<Badge>Default</Badge> <Badge variant="success">New</Badge> <Badge variant="warning">Beta</Badge> <Badge variant="danger">Deprecated</Badge> <Badge variant="info">v2</Badge> <Badge variant="outline">Draft</Badge>
+
+```mdx
+<Badge variant="success">New</Badge>
+<Badge variant="warning">Beta</Badge>
+<Badge variant="danger">Deprecated</Badge>
+```
+
+---
+
+## API Endpoint (developer docs)
+
+Use `ApiEndpoint` in API reference pages.
+
+<ApiEndpoint
+  method="POST"
+  path="/api/users"
+  description="Create a new user"
+  bodyParams={[
+    { name: "email", type: "string", required: true, description: "User's email address" },
+    { name: "name", type: "string", required: true, description: "Display name" },
+    { name: "role", type: "string", description: "User role: admin or member" },
+  ]}
+  response={`{
+  "id": "usr_abc123",
+  "email": "user@example.com",
+  "name": "Alice",
+  "role": "member",
+  "createdAt": "2025-01-01T00:00:00Z"
+}`}
+>
+  Creates a new user account and returns the created user object.
+</ApiEndpoint>
